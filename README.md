@@ -76,4 +76,4 @@ Thank you for helping me or contributing to the project!
 * [augustoccesar](https://github.com/augustoccesar) (headshot icon on killfeed,
   loading screen feedback, playback icon)
 * [r0ma](https://github.com/r0ma) (framerate autodetection)
-
+* [sparkoo](https://github.com/sparkoo) (unify config)
