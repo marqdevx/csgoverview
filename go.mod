@@ -3,27 +3,31 @@ module github.com/linus4/csgoverview
 require (
 	github.com/atotto/clipboard v0.1.4
 	github.com/cheggaaa/pb/v3 v3.1.2
-	github.com/markus-wa/demoinfocs-golang/v2 v2.13.3
-	github.com/veandco/go-sdl2 v0.4.33
+	github.com/markus-wa/demoinfocs-golang/v4 v4.2.5
+	github.com/veandco/go-sdl2 v0.4.40
 	golang.org/x/sys v0.5.0
 )
 
 require (
 	github.com/VividCortex/ewma v1.2.0 // indirect
 	github.com/fatih/color v1.14.1 // indirect
-	github.com/gogo/protobuf v1.3.2 // indirect
-	github.com/golang/geo v0.0.0-20210211234256-740aa86cb551 // indirect
+	github.com/golang/geo v0.0.0-20230421003525-6adc56603217 // indirect
+	github.com/golang/snappy v0.0.4 // indirect
 	github.com/markus-wa/go-unassert v0.1.3 // indirect
-	github.com/markus-wa/gobitread v0.2.3 // indirect
+	github.com/markus-wa/gobitread v0.2.4 // indirect
 	github.com/markus-wa/godispatch v1.4.1 // indirect
-	github.com/markus-wa/ice-cipher-go v0.0.0-20220823210642-1fcccd18c6c1 // indirect
+	github.com/markus-wa/ice-cipher-go v0.0.0-20230901094113-348096939ba7 // indirect
 	github.com/markus-wa/quickhull-go/v2 v2.2.0 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.17 // indirect
 	github.com/mattn/go-runewidth v0.0.14 // indirect
+	github.com/oklog/ulid/v2 v2.1.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
-	github.com/stretchr/objx v0.2.0 // indirect
+	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
+	google.golang.org/protobuf v1.35.1 // indirect
 )
 
-go 1.18
+go 1.21
+
+toolchain go1.23.2

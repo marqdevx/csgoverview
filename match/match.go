@@ -11,10 +11,9 @@ import (
 
 	"github.com/cheggaaa/pb/v3"
 	common "github.com/linus4/csgoverview/common"
-	dem "github.com/markus-wa/demoinfocs-golang/v2/pkg/demoinfocs"
-	demoinfo "github.com/markus-wa/demoinfocs-golang/v2/pkg/demoinfocs/common"
-	event "github.com/markus-wa/demoinfocs-golang/v2/pkg/demoinfocs/events"
-	meta "github.com/markus-wa/demoinfocs-golang/v2/pkg/demoinfocs/metadata"
+	dem "github.com/markus-wa/demoinfocs-golang/v4/pkg/demoinfocs"
+	demoinfo "github.com/markus-wa/demoinfocs-golang/v4/pkg/demoinfocs/common"
+	event "github.com/markus-wa/demoinfocs-golang/v4/pkg/demoinfocs/events"
 )
 
 const (
@@ -29,6 +28,7 @@ const (
 // Match contains general information about the demo and all relevant, parsed
 // data from every tick of the demo that will be displayed.
 type Match struct {
+	Scale				 float64
 	MapName              string
 	MapPZero             common.Point
 	MapScale             float32
@@ -80,10 +80,10 @@ func NewMatch(demoFileName string, pb *pb.ProgressBar) (*Match, error) {
 
 	match.MapName = header.MapName
 	match.MapPZero = common.Point{
-		X: float32(meta.MapNameToMap[match.MapName].PZero.X),
-		Y: float32(meta.MapNameToMap[match.MapName].PZero.Y),
+		X: float32(0),
+		Y: float32(0),
 	}
-	match.MapScale = float32(meta.MapNameToMap[match.MapName].Scale)
+	match.MapScale = float32(match.Scale)
 
 	registerEventHandlers(parser, match)
 	match.States = parseGameStates(parser, match, pb)
@@ -294,7 +294,7 @@ func parseGameStates(parser dem.Parser, match *Match, pb *pb.ProgressBar) []comm
 
 		// do this only once
 		if match.FrameRate == 0 {
-			if val, ok := parser.GameState().ConVars()["tv_snapshotrate"]; ok {
+			if val, ok := parser.GameState().Rules().ConVars()["tv_snapshotrate"]; ok {
 				floatVal, _ := strconv.ParseFloat(val, 64)
 				match.FrameRate = int(math.Round(floatVal))
 			} else {
@@ -496,14 +496,14 @@ func parseGameStates(parser dem.Parser, match *Match, pb *pb.ProgressBar) []comm
 		} else {
 			switch match.currentPhase {
 			case common.PhaseFreezetime:
-				freezetime, _ := strconv.Atoi(gameState.ConVars()["mp_freezetime"])
+				freezetime, _ := (gameState.Rules().FreezeTime())
 				remaining := time.Duration(freezetime)*time.Second - (parser.CurrentTime() - match.latestTimerEventTime)
 				timer = common.Timer{
 					TimeRemaining: remaining,
 					Phase:         common.PhaseFreezetime,
 				}
 			case common.PhaseRegular:
-				roundtime, _ := strconv.ParseFloat(gameState.ConVars()["mp_roundtime_defuse"], 64)
+				roundtime, _ := 2, 0
 				remaining := time.Duration(roundtime*60)*time.Second - (parser.CurrentTime() - match.latestTimerEventTime)
 				timer = common.Timer{
 					TimeRemaining: remaining,
@@ -519,14 +519,14 @@ func parseGameStates(parser dem.Parser, match *Match, pb *pb.ProgressBar) []comm
 					Phase:         common.PhasePlanted,
 				}
 			case common.PhaseRestart:
-				restartDelay, _ := strconv.Atoi(gameState.ConVars()["mp_round_restart_delay"])
+				restartDelay, _ := strconv.Atoi(gameState.Rules().ConVars()["mp_round_restart_delay"])
 				remaining := time.Duration(restartDelay)*time.Second - (parser.CurrentTime() - match.latestTimerEventTime)
 				timer = common.Timer{
 					TimeRemaining: remaining,
 					Phase:         common.PhaseRestart,
 				}
 			case common.PhaseHalftime:
-				halftimeDuration, _ := strconv.Atoi(gameState.ConVars()["mp_halftime_duration"])
+				halftimeDuration, _ := strconv.Atoi(gameState.Rules().ConVars()["mp_halftime_duration"])
 				remaining := time.Duration(halftimeDuration)*time.Second - (parser.CurrentTime() - match.latestTimerEventTime)
 				timer = common.Timer{
 					TimeRemaining: remaining,
