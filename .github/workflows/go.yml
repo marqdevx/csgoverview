@@ -54,8 +54,9 @@ jobs:
     - name: Set up dependencies
       run: sudo apt install libsdl2{,-gfx,-image,-ttf}-dev fonts-dejavu
 
-    - name: Build
+    - name: Build ubuntu
       run: go build -v ./...
-
+    - name: Build Windows
+      run: CGO_ENABLED=1 CC=x86_64-w64-mingw32-gcc GOOS=windows GOARCH=amd64 go build -trimpath -tags static -ldflags "-s -w -H windowsgui"
     - name: Test
       run: go test -v ./...
