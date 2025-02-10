@@ -28,7 +28,7 @@ const (
 // Match contains general information about the demo and all relevant, parsed
 // data from every tick of the demo that will be displayed.
 type Match struct {
-	Scale				 float64
+	Scale                float64
 	MapName              string
 	MapPZero             common.Point
 	MapScale             float32
@@ -79,11 +79,56 @@ func NewMatch(demoFileName string, pb *pb.ProgressBar) (*Match, error) {
 	}
 
 	match.MapName = header.MapName
-	match.MapPZero = common.Point{
-		X: float32(0),
-		Y: float32(0),
+
+	if match.MapName == "de_anubis" {
+		match.MapPZero = common.Point{
+			X: float32(-2796.000000),
+			Y: float32(3328.000000),
+		}
+		match.MapScale = float32(5.220000)
+	} else if match.MapName == "de_ancient" {
+		match.MapPZero = common.Point{
+			X: float32(-2953),
+			Y: float32(2164),
+		}
+		match.MapScale = float32(5)
+	} else if match.MapName == "de_dust2" {
+		match.MapPZero = common.Point{
+			X: float32(-2476),
+			Y: float32(3239),
+		}
+		match.MapScale = float32(4.4)
+	} else if match.MapName == "de_inferno" {
+		match.MapPZero = common.Point{
+			X: float32(-2087),
+			Y: float32(3870),
+		}
+		match.MapScale = float32(4.9)
+	} else if match.MapName == "de_mirage" {
+		match.MapPZero = common.Point{
+			X: float32(-3230),
+			Y: float32(1713),
+		}
+		match.MapScale = float32(5)
+	} else if match.MapName == "de_nuke" {
+		match.MapPZero = common.Point{
+			X: float32(-3453),
+			Y: float32(2887),
+		}
+		match.MapScale = float32(7)
+	} else if match.MapName == "de_train" {
+		match.MapPZero = common.Point{
+			X: float32(-2308),
+			Y: float32(2078),
+		}
+		match.MapScale = float32(4.082077)
+	} else if match.MapName == "de_vertigo" {
+		match.MapPZero = common.Point{
+			X: float32(-3168),
+			Y: float32(1762),
+		}
+		match.MapScale = float32(4)
 	}
-	match.MapScale = float32(match.Scale)
 
 	registerEventHandlers(parser, match)
 	match.States = parseGameStates(parser, match, pb)
