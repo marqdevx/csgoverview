@@ -3,7 +3,7 @@ module github.com/linus4/csgoverview
 require (
 	github.com/atotto/clipboard v0.1.4
 	github.com/cheggaaa/pb/v3 v3.1.2
-	github.com/markus-wa/demoinfocs-golang/v4 v4.2.5
+	github.com/markus-wa/demoinfocs-golang/v4 v4.3.3
 	github.com/veandco/go-sdl2 v0.4.40
 	golang.org/x/sys v0.5.0
 )
@@ -25,7 +25,7 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
-	google.golang.org/protobuf v1.35.1 // indirect
+	google.golang.org/protobuf v1.36.5 // indirect
 )
 
 go 1.21
